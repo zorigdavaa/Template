@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 #if ANALYTICS_SDKS
-using GameAnalyticsSDK;
+using SupersonicWisdomSDK;
 #endif
 
 namespace ZPackage
@@ -104,7 +104,7 @@ namespace ZPackage
                 Z.CanM.HudScore(value.ToString());
             }
         }
-        
+
         private int throwCount;
         public int ThrowCount
         {
@@ -249,30 +249,30 @@ namespace ZPackage
         void GAStartEvent()
         {
 #if ANALYTICS_SDKS
-            if (PlayerPrefs.GetInt("LevelZero", 0) == 0)
-            {
-                PlayerPrefs.SetInt("LevelZero", 1);
-                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_00000");
-                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_00000");
-            }
+        if (PlayerPrefs.GetInt("level_zero", 0) == 0)
+        {
+            SupersonicWisdom.Api.NotifyLevelStarted(0, null);
+            SupersonicWisdom.Api.NotifyLevelCompleted(0, null);
+            PlayerPrefs.SetInt("level_zero", 1);
+        }
 #endif
         }
         void GAPlayEvent()
         {
 #if ANALYTICS_SDKS
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_" + Level.ToString("00000"));
+            SupersonicWisdom.Api.NotifyLevelStarted(GameController.Level, null);
 #endif
         }
         void GAGameOverEvent()
         {
 #if ANALYTICS_SDKS
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "level_" + Level.ToString("00000"), Score);
+            SupersonicWisdom.Api.NotifyLevelFailed(GameController.Level, null);
 #endif
         }
         void GALevelCompleteEvent()
         {
 #if ANALYTICS_SDKS
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_" + Level.ToString("00000"), Score);
+            SupersonicWisdom.Api.NotifyLevelCompleted(GameController.Level, null);
 #endif
         }
         #endregion
