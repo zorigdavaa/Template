@@ -14,7 +14,6 @@ public class Obstacle : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().RemoveNode(other.collider.GetComponent<Node>());
         }
     }
 }

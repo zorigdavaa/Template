@@ -96,11 +96,7 @@ public class MovementForgeRun : Mb
 
     public void SetSpeed(float percent)
     {
-        speed = MaxSpeed * percent;
-        foreach (var node in player.Nodes)
-        {
-            node.SetSpeed(speed / MaxSpeed);
-        }        
+        speed = MaxSpeed * percent;    
         //Todo Players Node move
         // player.SetSpeed(speed / MaxSpeed);
     }
