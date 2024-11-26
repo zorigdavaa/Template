@@ -45,4 +45,28 @@ public abstract class Character : Mb, IHealth
         rb.isKinematic = true;
         healthBar.transform.parent.gameObject.SetActive(false);
     }
+    float speed = 5;
+    public void MoveTo(Vector3 dir)
+    {
+        if (dir != Vector3.zero)
+        {
+            dir = dir.normalized;
+            // rb.velocity = dir * speed;
+            rb.MovePosition(rb.position + dir * speed * Time.deltaTime);
+            rb.velocity += Vector3.down * 0.1f;
+            transform.rotation = Quaternion.LookRotation(dir);
+        }
+    }
+    public void MoveToVel(Vector3 dir)
+    {
+        if (dir != Vector3.zero)
+        {
+            dir = dir.normalized;
+            dir.y = 0;
+            // rb.velocity = dir * speed;
+            rb.velocity = (dir * speed) + Vector3.down * 0.1f;
+            // rb.velocity += Vector3.down * 0.1f;
+            transform.rotation = Quaternion.LookRotation(dir);
+        }
+    }
 }
